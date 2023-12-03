@@ -93,7 +93,7 @@ function cancelEdit(index) {
             ...users[index],
             ...originalUserData
         };
-        
+
         tmpUsers[index] = {
             ...tmpUsers[index],
             ...originalUserData
@@ -296,7 +296,7 @@ function changePage(targetPage) {
     else if (targetPage === 'prev') currentPage = Math.max(1, currentPage - 1);
     else if (targetPage === 'next') currentPage = Math.min(currentPage + 1, pageCount);
     else if (targetPage === 'last') currentPage = pageCount;
-    else currentPage = targetPage; 
+    else currentPage = targetPage;
 
     displayUsers(currentPage);
     setupPagination();
@@ -338,9 +338,14 @@ document.addEventListener('DOMContentLoaded', function () {
     tableBody.addEventListener('change', function (event) {
         const target = event.target;
         if (target.tagName.toLowerCase() === 'input' && target.classList.contains('select-row')) {
+            const row = target.closest('tr');
             if (target.checked) {
                 selectedCount.textContent = parseInt(selectedCount.textContent, 10) + 1;
                 deleteSelectedBtn.classList.add('active');
+                row.classList.add('selected-row'); 
+            }
+            else{
+                row.classList.remove('selected-row');
             }
         }
     });
@@ -361,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const userId = row.querySelector('.select-row').dataset.id;
 
             if (target.classList.contains('edit')) {
-                editUser(userId-1, curr_index);
+                editUser(userId - 1, curr_index);
             } else if (target.classList.contains('delete')) {
                 deleteUser(userId);
             }
@@ -372,7 +377,13 @@ document.addEventListener('DOMContentLoaded', function () {
     selectAllCheckbox.addEventListener('change', function (e) {
         const checkboxes = document.querySelectorAll('#table-body .select-row');
         checkboxes.forEach(checkbox => {
+            const row = checkbox.closest('tr');
             checkbox.checked = e.target.checked;
+            if (!e.target.checked) {
+                row.classList.remove('selected-row');
+            }else{
+                row.classList.add('selected-row');
+            }
         });
         deleteSelectedBtn.classList.toggle('active', e.target.checked);
         selectedCount.textContent = checkboxes.length;
@@ -417,11 +428,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 selectedCheckboxes.forEach(checkbox => {
+                    const row = checkbox.closest('tr');
                     let userId = checkbox.getAttribute('data-id');
                     tmpUsers = users.filter(user => user.id !== userId);
                     users = [...tmpUsers];
                 });
-                
+
                 displayUsers(currentPage);
                 setupPagination();
                 totalDataCount.textContent = users.length;
@@ -432,6 +444,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     'The user has been deleted.',
                     'success'
                 );
+            }
+            else{
+
             }
         });
 

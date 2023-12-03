@@ -217,6 +217,10 @@ button.delete {
 }
 
 
+.selected-row {
+  background-color: #e8e8e8;
+}
+
 @media (max-width: 768px) {
   #search-box {
     width: 90vw;
