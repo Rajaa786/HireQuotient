@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div id="input-container">
+        <div id="search-container">
+            <input type="text" id="search-box" placeholder="Search..." class="search-icon">
+            <button type="button" id="search-btn" class="search-icon">Search</button>
+        </div>
+        <div id="global-delete-container">
+            <button id="delete-selected"><i class="fa-solid fa-trash"></i></button>
+        </div>
+    </div>
+    <div id="table-container">
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all"></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Users will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <div id="bottom-container">
+        <div id="selection-count"><span id="selectedCount">0</span> of <span id="totalData">46</span> row(s) selected.</div>
+        <div id="pagination-container">
+            <span id="page-status">Page 1 of 5</span>
+            <button id="first" class="page-number" onclick="changePage('first')">&#171;</button>
+            <button id="prev" class="page-number" onclick="changePage('prev')">&#60;</button>
+            <div id="dynamic-pagination">
+               
+            </div>
+            <button id="next" class="page-number" onclick="changePage('next')">&#62;</button>
+            <button id="last" class="page-number" onclick="changePage('last')">&#187;</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
